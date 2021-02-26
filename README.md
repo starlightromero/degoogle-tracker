@@ -7,8 +7,10 @@ The de-facto standard to track your progress in claiming independence from Googl
 clone repo
 
 ```zsh
-git clone The de-facto standard to track your progress in claiming independence from Google.
+git clone https://github.com/starlightromero/degoogle-tracker.git
 ```
+
+run docker-compose
 
 ```zsh
 docker-compose up
