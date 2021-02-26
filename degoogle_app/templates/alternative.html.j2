@@ -1,0 +1,46 @@
+{% extends 'base.html.j2' %}
+{% block content %}
+
+<h1>Alternative</h1>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <fieldset>
+    {{ form.name.label }}
+    {% if form.name.errors %}
+      {{ form.name(class="is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.name.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.name }}
+    {% endif %}
+    {{ form.alternative.label }}
+    {% if form.alternative.errors %}
+      {{ form.alternative(class="is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.alternative.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.alternative }}
+    {% endif %}
+  </fieldset>
+  <div>
+    {{ form.submit }}
+  </div>
+</form>
+
+<div class="services">
+  {% for service in current_user.alternative %}
+    <p><{{ service.name }}</p>
+    <form method="DELETE" action="{{ url_for('alternative.delete_alternative_services', id=service.id) }}">
+      <button type="submit">Remove service</button>
+    </form>
+  {% endfor %}
+</div>
+
+{% endblock %}
