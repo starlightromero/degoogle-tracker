@@ -34,7 +34,7 @@ def login():
             next_page = request.args.get("next")
             return redirect(next_page if next_page else url_for("main.home"))
         flash("Login Unsuccessful. Please verify username and password.")
-    return render_template("login.html,j2", form=form)
+    return render_template("login.html.j2", form=form)
 
 
 @auth.route("/logout")
