@@ -1,6 +1,7 @@
 """Google routes."""
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
+from degoogle_app.google.forms import GoogleForm
 from degoogle_app.models import Google
 from degoogle_app import db
 
