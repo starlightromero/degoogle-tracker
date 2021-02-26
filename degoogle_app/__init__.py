@@ -8,7 +8,7 @@ from degoogle_app.config import Config
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = "user.login"
+login_manager.login_view = "auth.login"
 login_manager.session_protection = "strong"
 
 
@@ -28,8 +28,8 @@ def create_app(config_class=Config):
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
-    app.register_blueprint(google)
-    app.register_blueprint(alternative)
+    app.register_blueprint(google, url_prefix="/google")
+    app.register_blueprint(alternative, url_prefix="/alternative")
 
     with app.app_context():
         db.create_all()
