@@ -10,18 +10,20 @@
 <body>
   <nav>
     <a href="/">Home</a>
-    <a href="/new_store">Google</a>
-    <a href="/new_item">Alternative</a>
-    {% if current_user %}
-    <a href="/logout">Logout</a>
+    <a href="/google">Google</a>
+    <a href="/alternative">Alternative</a>
+    {% if current_user.is_authenticated %}
+      <a href="/logout">Logout</a>
     {% else %}
-    <a href="/signup">Sign Up</a>
-    <a href="/login">Login</a>
+      <a href="/signup">Sign Up</a>
+      <a href="/login">Login</a>
     {% endif %}
   </nav>
+  
   {% for message in get_flashed_messages() %}
-  <p>{{ message }}</p>
+    <p>{{ message }}</p>
   {% endfor %}
+
   {% block content %}{% endblock %}
 </body>
 
