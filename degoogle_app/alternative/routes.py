@@ -1,6 +1,7 @@
 """Alternative routes."""
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
+from degoogle_app.alternative.forms import AlternativeForm
 from degoogle_app.models import Alternative
 from degoogle_app import db
 
