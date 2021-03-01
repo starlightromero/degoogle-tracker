@@ -8,46 +8,33 @@ from degoogle_app import db
 google = Blueprint("google", __name__)
 
 
-@login_required
 @google.route("/", methods=["GET"])
-def get_google_services():
-    """Get current user's google services."""
+@login_required
+def get_google_software():
+    """Get current user's google software."""
     form = GoogleForm()
     return render_template("google.html.j2", form=form)
 
 
-@login_required
 @google.route("/", methods=["POST"])
-def add_google_services():
-    """Add new google service to current user."""
+@login_required
+def add_google_software():
+    """Add new google software to current user."""
     form = GoogleForm()
     if form.validate_on_submit:
-        google = Google(name=form.name.data)
+        google = Google(name=form.name.data, user_id=current_user.id)
         db.session.add(google)
         db.session.commit()
-        flash("The google service has been added.")
-    return redirect(url_for("google.get_google_services"))
+        flash("The google software has been added.")
+    return redirect(url_for("google.get_google_software"))
 
 
+@google.route("/<int:software_id>", methods=["DELETE"])
 @login_required
-@google.route("/:id", methods=["PATCH"])
-def update_google_services(id):
-    """Update google service for current user."""
-    google = Google.query.get_or_404(id)
-    form = GoogleForm()
-    if form.validate_on_submit:
-        google.name = form.name.data
-        db.session.commit()
-        flash("The google service has been updated.")
-    return redirect(url_for("google.get_google_services"))
-
-
-@login_required
-@google.route("/:id", methods=["DELETE"])
-def delete_google_services(id):
-    """Delete google service for current user."""
-    google = Google.query.get_or_404(id)
+def delete_google_software(software_id):
+    """Delete google software for current user."""
+    google = Google.query.get_or_404(software_id)
     db.session.delete(google)
     db.session.commit()
     flash(f"{google.name} has been deleted.")
-    return redirect(url_for("google.get_google_services"))
+    return redirect(url_for("google.get_google_software"))
