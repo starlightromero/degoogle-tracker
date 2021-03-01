@@ -1,20 +1,18 @@
 <form method="POST">
     {{ form.hidden_tag() }}
-    <fieldset>
-        {{ form.username.label }}
-        {{ form.username }}
-        <ul>
-        {% for error in form.username.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
-        {{ form.password.label }}
-        {{ form.password }}
-        <ul>
-        {% for error in form.password.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
-        {{ form.submit }}
-    </fieldset>
+    {{ form.username.label }}
+    {{ form.username }}
+    <ul>
+    {% for error in form.username.errors %}
+        <li class="error">{{ error }}</li>
+    {% endfor %}
+    </ul>
+    {{ form.password.label }}
+    {{ form.password }}
+    <ul>
+    {% for error in form.password.errors %}
+        <li class="error">{{ error }}</li>
+    {% endfor %}
+    </ul>
+    {{ form.submit }}
 </form>
