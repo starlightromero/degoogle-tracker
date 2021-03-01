@@ -29,7 +29,7 @@ def add_google_software():
     return redirect(url_for("google.get_google_software"))
 
 
-@google.route("/<int:software_id>", methods=["DELETE"])
+@google.route("/<int:software_id>", methods=["POST"])
 @login_required
 def delete_google_software(software_id):
     """Delete google software for current user."""
