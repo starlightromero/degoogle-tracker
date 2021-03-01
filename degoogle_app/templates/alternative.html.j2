@@ -5,42 +5,46 @@
 
 <form method="POST">
   {{ form.hidden_tag() }}
-  <fieldset>
-    {{ form.name.label }}
-    {% if form.name.errors %}
-      {{ form.name(class="is-invalid") }}
-      <div class="invalid-feedback">
-        {% for error in form.name.errors %}
-          {{ error }}
-        {% endfor %}
-      </div>
-    {% else %}
-      {{ form.name }}
-    {% endif %}
-    {{ form.alternative.label }}
-    {% if form.alternative.errors %}
-      {{ form.alternative(class="is-invalid") }}
-      <div class="invalid-feedback">
-        {% for error in form.alternative.errors %}
-          {{ error }}
-        {% endfor %}
-      </div>
-    {% else %}
-      {{ form.alternative }}
-    {% endif %}
-  </fieldset>
-  <div>
-    {{ form.submit }}
-  </div>
+  {{ form.name.label }}
+  {% if form.name.errors %}
+    {{ form.name(class="is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.name.errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+  {% else %}
+    {{ form.name }}
+  {% endif %}
+  {{ form.alternative.label }}
+  {% if form.alternative.errors %}
+    {{ form.alternative(class="is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.alternative.errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+  {% else %}
+    {{ form.alternative }}
+  {% endif %}
+  {{ form.submit }}
 </form>
 
-<div class="services">
-  {% for service in current_user.alternative %}
-    <p><{{ service.name }}</p>
-    <form method="DELETE" action="{{ url_for('alternative.delete_alternative_services', id=service.id) }}">
-      <button type="submit">Remove service</button>
-    </form>
-  {% endfor %}
-</div>
+<h3>List of the Alterntive software you use</h3>
+
+{% if current_user.alternative %}
+  <div class="softwares">
+    {% for software in current_user.alternative %}
+      <div class="software">
+        <p>{{ software.name }} > {{ software.google.name }}</p>
+        <form method="DELETE" action="{{ url_for('alternative.delete_alternative_software', software_id=software.id) }}">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>You currently have no alternative software.</p>
+{% endif %}
 
 {% endblock %}
