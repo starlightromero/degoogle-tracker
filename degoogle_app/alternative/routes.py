@@ -33,7 +33,7 @@ def add_alternative_software():
     return redirect(url_for("alternative.get_alternative_software"))
 
 
-@alternative.route("/<software_id>", methods=["DELETE"])
+@alternative.route("/<software_id>", methods=["POST"])
 @login_required
 def delete_alternative_software(software_id):
     """Delete alternative software for current user."""
