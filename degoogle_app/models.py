@@ -32,7 +32,7 @@ class Google(db.Model):
     """Google model."""
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
+    name = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship("User", backref="google")
 
@@ -45,7 +45,7 @@ class Alternative(db.Model):
     """Alternative model."""
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
+    name = db.Column(db.String(50), nullable=False)
     google_id = db.Column(db.Integer, db.ForeignKey("google.id"))
     google = db.relationship("Google", backref="alternative", uselist=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
