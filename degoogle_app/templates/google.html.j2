@@ -5,31 +5,35 @@
 
 <form method="POST">
   {{ form.hidden_tag() }}
-  <fieldset>
-    {{ form.name.label }}
-    {% if form.name.errors %}
-      {{ form.name(class="is-invalid") }}
-      <div class="invalid-feedback">
-        {% for error in form.name.errors %}
-          {{ error }}
-        {% endfor %}
-      </div>
-    {% else %}
-      {{ form.name }}
-    {% endif %}
-  </fieldset>
-  <div>
-    {{ form.submit }}
-  </div>
+  {{ form.name.label }}
+  {% if form.name.errors %}
+    {{ form.name(class="is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.name.errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+  {% else %}
+    {{ form.name }}
+  {% endif %}
+  {{ form.submit }}
 </form>
 
-<div class="services">
-  {% for service in current_user.google %}
-    <p><{{ service.name }}</p>
-    <form method="DELETE" action="{{ url_for('google.delete_google_services', id=service.id) }}">
-      <button type="submit">Remove service</button>
-    </form>
-  {% endfor %}
-</div>
+<h3>List of the Google software you use</h3>
+
+{% if current_user.google %}
+  <div class="softwares">
+    {% for software in current_user.google %}
+      <div class="software">
+        <p>{{ software.name }}</p>
+        <form method="DELETE" action="{{ url_for('google.delete_google_software', software_id=software.id) }}">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>You currently have no Google software. You are free from the chains.</p>
+{% endif %}
 
 {% endblock %}
