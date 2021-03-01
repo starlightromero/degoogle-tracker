@@ -14,8 +14,6 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=True, unique=True)
-    alternative = db.relationship("Alternative", back_populates="user")
-    google = db.relationship("Google", back_populates="user")
 
     def __repr__(self):
         """User returns username."""
@@ -35,10 +33,8 @@ class Google(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    alternative_id = db.Column(db.Integer, db.ForeignKey("Alternative.id"))
-    alternative = db.relationship("Alternative", back_populates="google")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    user = db.relationship("User", back_populates="google")
+    user = db.relationship("User", backref="google")
 
     def __repr__(self):
         """Google returns name."""
@@ -50,10 +46,10 @@ class Alternative(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    google_id = db.Column(db.Integer, db.ForeignKey("Google.id"))
-    google = db.relationship("Google", back_populates="alternative")
+    google_id = db.Column(db.Integer, db.ForeignKey("google.id"))
+    google = db.relationship("Google", backref="alternative", uselist=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    user = db.relationship("User", back_populates="alternative")
+    user = db.relationship("User", backref="alternative")
 
     def __repr__(self):
         """Alternative returns name."""
