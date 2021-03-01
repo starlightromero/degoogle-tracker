@@ -37,7 +37,7 @@
     {% for software in current_user.alternative %}
       <div class="software">
         <p>{{ software.name }} > {{ software.google.name }}</p>
-        <form method="DELETE" action="{{ url_for('alternative.delete_alternative_software', software_id=software.id) }}">
+        <form method="POST" action="{{ url_for('alternative.delete_alternative_software', software_id=software.id) }}">
           <button type="submit">Delete</button>
         </form>
       </div>
